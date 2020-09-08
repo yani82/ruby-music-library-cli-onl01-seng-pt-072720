@@ -2,9 +2,9 @@ require 'pry'
 class MusicLibraryController
   attr_accessor :path
     
-  def initialize(the_path='./db/mp3s')
+  def initialize(path='./db/mp3s')
     @path = path
-    MusicImporter.new(the_path).import 
+    MusicImporter.new(path).import 
   end 
     
   def call 

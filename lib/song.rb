@@ -46,7 +46,7 @@ class Song
       @genre = genre 
      # genre.add_song(self)
      #genre.songs << genre unless genre.songs.include?(self)
-     genre.songs << self if !@genre.songs.include?(self)
+     self.genre.songs << self if !@genre.songs.include?(self)
     end 
     
     def self.find_by_name(name)
@@ -65,8 +65,16 @@ class Song
     genre_name = filename.split('-')[2].chomp('.mp3')
     new_artist = Artist.find_or_create_by_name(artist_name)
     new_genre = Genre.find_or_create_by_name(genre_name)
-    Song.new(song_name, new_artist, new_genre)
+    Song.new(song_name, new_artist, genre_name)
     end
+    
+    # it "initializes a song based on the passed-in filename" do
+    #   song = Song.new_from_filename("Thundercat - For Love I Come - dance.mp3")
+
+    #   expect(song.name).to eq("For Love I Come")
+    #   expect(song.artist.name).to eq("Thundercat")
+    #   expect(song.genre.name).to eq("dance")
+    # end
     
     # expect(song.name).to eq("For Love I Come")
     #   expect(song.artist.name).to eq("Thundercat")
