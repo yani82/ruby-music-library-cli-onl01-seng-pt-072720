@@ -8,7 +8,6 @@ class Song
         @name = name 
         self.artist = artist if artist != nil 
         self.genre = genre if genre != nil 
-        #tough part 
     end 
     
     def save 
@@ -60,14 +59,19 @@ class Song
       # no .all method? 
     end 
     
-    def self.new_from_filename(filename)      
-      artist_name = filename.split('-')[0].strip
-      song_name = filename.split('-')[1].strip     
-      genre_name = filename.split('-')[2].delete_suffix!('.mp3').strip  
-      new_artist = Artist.find_or_create_by_name(artist_name)   
-      new_genre = Genre.find_or_create_by_name(genre_name)        
-      Song.new(song_name, new_artist, new_genre)    
+    def self.new_from_filename(filename)
+    artist_name = filename.split('-')[0].strip
+    song_name = filename.split('-')[1].strip
+    genre_name = filename.split('-')[2].chomp('.mp3')
+    new_artist = Artist.find_or_create_by_name(artist_name)
+    new_genre = Genre.find_or_create_by_name(genre_name)
+    Song.new(song_name, new_artist, new_genre)
     end
+    
+    # expect(song.name).to eq("For Love I Come")
+    #   expect(song.artist.name).to eq("Thundercat")
+    #   expect(song.genre.name).to eq("dance")
+    # end
     
     def self.create_from_filename(filename)
       self.new_from_filename(filename).save
