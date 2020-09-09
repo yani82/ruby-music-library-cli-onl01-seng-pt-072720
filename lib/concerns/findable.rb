@@ -1,13 +1,14 @@
-module Concerns::Findable 
+module Concerns::Findable
 
-  def find_by_name(name)
-    self.all.find{ |object| object.name == name } 
-  end 
+    def find_by_name(name)
+        self.all.find { |obj| obj.name == name }
+      end
+      
+    def find_or_create_by_name(name)
+        !self.find_by_name(name) ? self.create(name) : self.find_by_name(name)
+    end
 
- def find_or_create_by_name(name) 
-    !self.find_by_name(name) ? self.create(name) : self.find_by_name(name)
-  end 
-end 
+end
 
 # def self.find_by_name(name)
 #       #@@all.detect { |song| song.name == name } 
